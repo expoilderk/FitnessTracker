@@ -15,45 +15,23 @@
 
     <TextView
         android:text="@string/imc_desc"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="48dp"
+        style="@style/TextViewForm"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/edit_imc_weight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:hint="@string/weight"
-        android:inputType="number"
-        android:maxLength="3"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="40dp"
-        />
+        style="@style/EditTextForm"/>
 
     <EditText
         android:id="@+id/edit_imc_height"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:hint="@string/height"
-        android:inputType="number"
-        android:maxLength="3"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="40dp"
-        />
+        style="@style/EditTextForm"/>
 
     <Button
         android:id="@+id/btn_imc_send"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginBottom="40dp"
         android:text="@string/calc"
-        android:textColor="@android:color/white"
-        android:backgroundTint="@color/colorAccent"
-        />
+        style="@style/ButtonForm"/>
 </LinearLayout>
 </ScrollView>
