@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import static androidx.core.os.LocaleListCompat.create;
+
 public class ImcActivity extends AppCompatActivity {
 
     private EditText editHeight;
@@ -48,8 +50,18 @@ public class ImcActivity extends AppCompatActivity {
             AlertDialog dialog = new AlertDialog.Builder(ImcActivity.this)
                     .setTitle(getString(R.string.imc_response, result))
                     .setMessage(imcResponseId)
-                    .setPositiveButton(android.R.string.ok, (dialog1, which) -> {
+                    .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
                     })
+                    .setNegativeButton(R.string.save, ((dialog1, which) -> {
+
+                        new Thread(() -> {
+                            long caldId = SqlHelper.getInstance(ImcActivity.this).addItem("imc", result);
+                            runOnUiThread(() -> {
+                                if (caldId > 0)
+                                    Toast.makeText(ImcActivity.this, R.string.calc_saved, Toast.LENGTH_SHORT).show();
+                            });
+                        }).start();
+                    }))
                     .create();
             dialog.show();
 
@@ -60,33 +72,33 @@ public class ImcActivity extends AppCompatActivity {
     }
 
     @StringRes
-    private int imcResponse(double imc){
+    private int imcResponse(double imc) {
         if (imc < 15)
             return R.string.imc_severely_low_weight;
-        else if(imc < 16)
+        else if (imc < 16)
             return R.string.imc_very_low_weight;
-        else if(imc < 18.5)
+        else if (imc < 18.5)
             return R.string.imc_low_weight;
-        else if(imc < 25)
+        else if (imc < 25)
             return R.string.normal;
-        else if(imc < 30)
+        else if (imc < 30)
             return R.string.imc_high_weight;
-        else if(imc < 35)
+        else if (imc < 35)
             return R.string.imc_so_high_weight;
-        else if(imc < 40)
+        else if (imc < 40)
             return R.string.imc_severely_high_weight;
         else
             return R.string.imc_extreme_weight;
     }
 
-    private double calculateImc(int height, int weight){
-        return weight / ( ((double) height / 100) * ((double) height / 100) );
+    private double calculateImc(int height, int weight) {
+        return weight / (((double) height / 100) * ((double) height / 100));
     }
 
-    private boolean validate(){
+    private boolean validate() {
         return (!editHeight.getText().toString().startsWith("0")
-            && !editWeight.getText().toString().startsWith("0")
-            && !editHeight.getText().toString().isEmpty()
-            && !editWeight.getText().toString().isEmpty());
+                && !editWeight.getText().toString().startsWith("0")
+                && !editHeight.getText().toString().isEmpty()
+                && !editWeight.getText().toString().isEmpty());
     }
 }
