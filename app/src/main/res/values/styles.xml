@@ -32,4 +32,9 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/bg_button_accent</item>
     </style>
+
+    <style name="SpinnerForm" parent="TextViewForm">
+
+    </style>
+
 </resources>
